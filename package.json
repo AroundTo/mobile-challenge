@@ -1,27 +1,100 @@
 {
-  "name": "mobile-test",
-  "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "eject": "expo eject"
+ "name": "mobile-test",
+ "version": "1.0.0",
+ "main": "node_modules/expo/AppEntry.js",
+ "scripts": {
+  "start": "expo start",
+  "android": "expo start --android",
+  "ios": "expo start --ios",
+  "web": "expo start --web",
+  "eject": "expo eject"
+ },
+ "dependencies": {
+  "expo": "~44.0.0",
+  "expo-status-bar": "~1.2.0",
+  "react": "17.0.1",
+  "react-dom": "17.0.1",
+  "react-native": "0.64.3",
+  "react-native-web": "0.17.1"
+ },
+ "devDependencies": {
+  "@babel/core": "^7.12.9",
+  "@types/react": "~17.0.21",
+  "@types/react-native": "~0.64.12",
+  "@typescript-eslint/parser": "^5.20.0",
+  "eslint": "7.32.0",
+  "prettier": "2.6.1",
+  "prettier-eslint": "^13.0.0",
+  "typescript": "^4.6.3"
+ },
+ "private": true,
+ "prettier": {
+  "printWidth": 80,
+  "tabWidth": 1,
+  "semi": false,
+  "singleQuote": true,
+  "jsxSingleQuote": false,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "avoid"
+ },
+ "eslintConfig": {
+  "env": {
+   "browser": true,
+   "es2021": true,
+   "node": true
   },
-  "dependencies": {
-    "expo": "~44.0.0",
-    "expo-status-bar": "~1.2.0",
-    "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "react-native": "0.64.3",
-    "react-native-web": "0.17.1"
+  "extends": [
+   "plugin:react/recommended",
+   "standard"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+   "ecmaFeatures": {
+    "jsx": true
+   },
+   "ecmaVersion": "latest",
+   "sourceType": "module"
   },
-  "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@types/react": "~17.0.21",
-    "@types/react-native": "~0.64.12",
-    "typescript": "~4.3.5"
-  },
-  "private": true
+  "plugins": [
+   "react",
+   "@typescript-eslint",
+   "react-hooks"
+  ],
+  "rules": {
+   "react/react-in-jsx-scope": "off",
+   "arrow-body-style": [
+    "error",
+    "as-needed"
+   ],
+   "react/jsx-curly-brace-presence": [
+    "error",
+    {
+     "props": "never",
+     "children": "never"
+    }
+   ],
+   "react/self-closing-comp": [
+    "error",
+    {
+     "component": true,
+     "html": true
+    }
+   ],
+   "react/jsx-no-useless-fragment": "error",
+   "func-style": [
+    "error",
+    "expression"
+   ],
+   "prefer-arrow-callback": "error",
+   "react/display-name": "off",
+   "react-hooks/exhaustive-deps": [
+    "warn",
+    {
+     "additionalHooks": "(useRecoilCallback|useRecoilTransaction_UNSTABLE)"
+    }
+   ]
+  }
+ }
 }
