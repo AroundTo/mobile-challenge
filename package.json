@@ -25,16 +25,16 @@
   "@typescript-eslint/parser": "^5.20.0",
   "eslint": "7.32.0",
   "eslint-config-standard": "^16.0.3",
+  "eslint-plugin-import": "^2.25.4",
+  "eslint-plugin-node": "^11.1.0",
+  "eslint-plugin-prefer-arrow": "^1.2.3",
+  "eslint-plugin-promise": "^5.2.0",
   "eslint-plugin-react": "^7.29.4",
   "eslint-plugin-react-hooks": "^4.4.0",
   "prettier": "2.6.1",
   "prettier-eslint": "^13.0.0",
   "typescript": "^4.6.3",
-  "typescript-eslint": "^0.0.1-alpha.0",
-  "eslint-plugin-import": "^2.25.4",
-  "eslint-plugin-node": "^11.1.0",
-  "eslint-plugin-promise": "^5.2.0"
-
+  "typescript-eslint": "^0.0.1-alpha.0"
  },
  "private": true,
  "prettier": {
@@ -69,7 +69,8 @@
   "plugins": [
    "react",
    "@typescript-eslint",
-   "react-hooks"
+   "react-hooks",
+   "prefer-arrow"
   ],
   "rules": {
    "react/react-in-jsx-scope": "off",
@@ -92,16 +93,32 @@
     }
    ],
    "react/jsx-no-useless-fragment": "error",
-   "func-style": [
-    "error",
-    "expression"
-   ],
-   "prefer-arrow-callback": "error",
    "react/display-name": "off",
    "react-hooks/exhaustive-deps": [
     "warn",
     {
      "additionalHooks": "(useRecoilCallback|useRecoilTransaction_UNSTABLE)"
+    }
+   ],
+   "prefer-arrow/prefer-arrow-functions": [
+    "error",
+    {
+     "disallowPrototype": true,
+     "singleReturnOnly": false,
+     "classPropertiesAllowed": false
+    }
+   ],
+   "prefer-arrow-callback": [
+    "error",
+    {
+     "allowNamedFunctions": true
+    }
+   ],
+   "func-style": [
+    "error",
+    "expression",
+    {
+     "allowArrowFunctions": true
     }
    ]
   }
