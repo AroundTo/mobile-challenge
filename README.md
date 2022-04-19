@@ -22,6 +22,7 @@ we need to be able to deploy in two different enviroments, one of them should so
 
 ## What will be evaluated ? 
 
+
 *(sorted from main priority)*
 
 Code **solution** of the main objective
@@ -33,6 +34,8 @@ Code **solution** of the main objective
 **Deployment** solution for Expo
 
 **Env** support
+
+follow our **preset** for eslint and prettier
 
 Commit **history**
 
