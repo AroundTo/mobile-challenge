@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View, ActivityIndicator, FlatList } from 'react-native'
 
+import MovieCard from './src/components/MovieCard'
 import { movie } from './src/utils/Interfaces'
 
 const App = () => {
@@ -37,7 +38,7 @@ const App = () => {
 
     <FlatList
     data={movies}
-    renderItem={({ item }) => <Text>{item.movie}</Text>}
+    renderItem={({ item }) => <MovieCard movieData={item}/>}
     keyExtractor={(item, index) => index.toString()}/>
 
  </View>
