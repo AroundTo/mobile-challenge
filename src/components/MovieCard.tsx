@@ -25,7 +25,7 @@ const MovieCard = ({ movieData }: MovieCardProps) => (
   <Image
    source={{ uri: movieData.poster }}
    style={styles.poster}
-   resizeMode="contain"
+   resizeMode="cover"
   />
   <View style={styles.data}>
    <Text style={styles.name}>{movieData.movie}</Text>
@@ -49,11 +49,11 @@ const styles = StyleSheet.create({
   },
   data: {
     flex: 1,
-    paddingVertical: 5,
+    paddingVertical: 5
   },
   poster: {
     width: '40%',
-    height: 200,
+    height: '100%',
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     alignSelf: 'center'
@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   text: {
-    color: '#023e8a'
+    color: '#023e8a',
+    flex: 1
   }
 })

@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react'
 
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View, ActivityIndicator, FlatList } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+  FlatList
+} from 'react-native'
 
 import MovieCard from './src/components/MovieCard'
 import { movie } from './src/utils/Interfaces'
@@ -12,36 +18,54 @@ const App = () => {
   const [loading, setLoading] = useState(true)
   const URL = 'https://owen-wilson-wow-api.herokuapp.com/wows/random?results=100'
 
+  const filterList = (movieList: Array<movie>) => {
+    movieList = movieList.sort((a:movie, b:movie) => {
+      const dateA = new Date(a.release_date)
+      const dateB = new Date(b.release_date)
+      if (dateA < dateB) return -1
+      if (dateA > dateB) return 1
+      return 0
+    })
+
+    let lastMovieName = ''
+
+    movieList = movieList.filter((value) => {
+      if (value.movie === lastMovieName) {
+        return false
+      }
+      lastMovieName = value.movie
+      return true
+    })
+
+    return movieList
+  }
+
   useEffect(() => {
     const getData = async () => {
-      fetch(URL).then((value) => value.json())
-        .then((value) => {
-          setMovies(value)
+      fetch(URL)
+        .then(value => value.json())
+        .then((value:Array<movie>) => {
+          setMovies(filterList(value)
+          )
           setLoading(false)
-        }
-        )
+        })
     }
-
-    getData()
-  }, [])
+    if (!movies.length) { getData() }
+  }, [movies])
 
   if (loading) {
-    return (
-      <ActivityIndicator size="large" color="blue" style={styles.loading}/>
-    )
+    return <ActivityIndicator size="large" color="blue" style={styles.loading} />
   }
   return (
- <View style={styles.container}>
-    <StatusBar style="inverted" translucent={false}/>
-
-    <Text style={styles.title}>Movies from the Owen Willson API</Text>
-
-    <FlatList
+  <View style={styles.container}>
+   <StatusBar style="inverted" translucent={false} />
+   <Text style={styles.title}>Movies from the Owen Willson API</Text>
+   <FlatList
     data={movies}
-    renderItem={({ item }) => <MovieCard movieData={item}/>}
-    keyExtractor={(item, index) => index.toString()}/>
-
- </View>
+    renderItem={({ item }) => <MovieCard movieData={item} />}
+    keyExtractor={(item, index) => index.toString()}
+   />
+  </View>
   )
 }
 
@@ -60,7 +84,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
-    marginVertical: 20
+    paddingVertical: 20,
+    backgroundColor: '#023e8a',
+    color: 'white',
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16
   }
 })
 
