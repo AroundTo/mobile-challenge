@@ -6,17 +6,31 @@ import {
   Text,
   View,
   ActivityIndicator,
-  FlatList
+  FlatList,
+  TouchableOpacity
 } from 'react-native'
 
 import MovieCard from './src/components/MovieCard'
 import { movie } from './src/utils/Interfaces'
 
 const App = () => {
-  const [order, setOrder] = useState('asc')
+  const [order, setOrder] = useState<'asc' | 'desc'>('asc')
   const [movies, setMovies] = useState<Array<movie>>([])
   const [loading, setLoading] = useState(true)
   const URL = 'https://owen-wilson-wow-api.herokuapp.com/wows/random?results=100'
+
+  useEffect(() => {
+    const getData = async () => {
+      fetch(URL)
+        .then(value => value.json())
+        .then((value:Array<movie>) => {
+          setMovies(filterList(value)
+          )
+          setLoading(false)
+        })
+    }
+    if (!movies.length) { getData() }
+  }, [movies])
 
   const filterList = (movieList: Array<movie>) => {
     movieList = movieList.sort((a:movie, b:movie) => {
@@ -40,18 +54,10 @@ const App = () => {
     return movieList
   }
 
-  useEffect(() => {
-    const getData = async () => {
-      fetch(URL)
-        .then(value => value.json())
-        .then((value:Array<movie>) => {
-          setMovies(filterList(value)
-          )
-          setLoading(false)
-        })
-    }
-    if (!movies.length) { getData() }
-  }, [movies])
+  const btnOrder = () => {
+    setOrder(order === 'asc' ? 'desc' : 'asc')
+    setMovies(movies.reverse())
+  }
 
   if (loading) {
     return <ActivityIndicator size="large" color="blue" style={styles.loading} />
@@ -65,6 +71,9 @@ const App = () => {
     renderItem={({ item }) => <MovieCard movieData={item} />}
     keyExtractor={(item, index) => index.toString()}
    />
+   <TouchableOpacity onPress={btnOrder} style={styles.btnOrder}>
+     <Text style={styles.btnOrderText}>{order === 'asc' ? 'Asc' : 'Desc'}</Text>
+   </TouchableOpacity>
   </View>
   )
 }
@@ -89,6 +98,19 @@ const styles = StyleSheet.create({
     color: 'white',
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16
+  },
+  btnOrder: {
+    backgroundColor: '#0077b6',
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16
+
+  },
+  btnOrderText: {
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+    padding: 20
   }
 })
 
